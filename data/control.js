@@ -1,0 +1,21 @@
+var control = {
+	reel:{
+		speed:37,
+		slipspeed:37,
+		margin:0
+	},
+	minbet:1,
+	wait:0,
+	code:[
+		"はずれ",
+		"リプレイ",
+		"ベル",
+		"チェリー1",
+		"チェリー2",
+		"BIG1",
+		"REG1",
+		"チェリー重複",
+		"ボーナス"
+		],
+	maxpay:[15,15,7]
+}
