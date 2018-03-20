@@ -34,4 +34,4 @@ function keyboard(keyCode) {
         "keyup", key.upHandler.bind(key), false
     )
     return key
-}         
+}

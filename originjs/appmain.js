@@ -4,8 +4,25 @@ function main() {
     window.scrollTo(0, 0);
 
     var notplaypaysound = false;
+    var lotyaku;
 
-    slotmodule.on("allreelstop", function(e) {
+    slotmodule.on("allreelstop",function(e){
+        var timer = setTimeout(()=>{
+            if(gamemode=="normal"&&(lotyaku=="BIG"||lotyaku=="REG")&&bonusflag!="none"){
+                sounder.playSound('cat1');
+            }
+        },3000)
+        if(slotmodule.keyListener.allreleased){
+                paycheck(e);
+                clearTimeout(timer)
+        }else{
+            slotmodule.once('allkeyrelease',()=>{
+                paycheck(e);
+                clearTimeout(timer)
+            })
+        }
+    });
+    function paycheck(e) {
         if (e.hits != 0) {
             if (e.hityaku.length == 0)
                 return
@@ -186,7 +203,7 @@ function main() {
         if (nexter) {
             e.stopend()
         }
-    })
+    }
 
     slotmodule.on("payend", function() {
         if (gamemode != "normal") {
@@ -275,7 +292,7 @@ function main() {
 
                 lot = window.power || lot;
                 window.power = undefined
-
+                lotyaku = lot;
                 switch (lot) {
                     case "リプレイ":
                         ret = lot
@@ -408,7 +425,7 @@ function main() {
     sounder.addFile("sound/CT1.mp3", "ct1").addTag("bgm");
     sounder.addFile("sound/ctstart.wav", "ctstart").addTag("se");
     sounder.addFile("sound/yattyare.wav", "yattyare").addTag("voice").addTag("se");
-    sounder.addFile("sound/delive.wav", "delive").addTag("voice").addTag("se");
+    sounder.addFile("sound/cat1.wav", "cat1").addTag("se");
     sounder.addFile("sound/reg.wav", "reg").addTag("bgm");
     sounder.addFile("sound/big2.mp3", "big2").addTag("bgm");
     sounder.addFile("sound/reglot.mp3", "reglot").addTag("se");

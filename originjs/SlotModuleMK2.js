@@ -248,7 +248,20 @@ SlotModuleMk2.prototype.registerKeyControl = function() {
         that.betCoin(3)
     }
 
-    this.almighty = allkeyListener.press
+    this.almighty = allkeyListener.press;
+    this.keyListener = {leftkeyListener,centerkeyListener,rightkeyListener,betkeyListener,leverkeyListener,allkeyListener,get allreleased(){
+        return Object.keys(this).every(k=>k=='allreleased'||this[k].isUp)
+    }};
+    Object.keys(this.keyListener).forEach(key=>{
+        this.keyListener[key].release = ()=>{
+            if(Object.keys(this.keyListener).every(k=>k==key||k=='allreleased'||this.keyListener[k].isUp)){
+                this.emit('allkeyrelease');
+                this.keyListener.allreleased = true;
+            }else{
+                this.keyListener.allreleased = false;
+            }
+        }
+    })
 }
 
 SlotModuleMk2.prototype.UpdatePlayingStatus = function() {
